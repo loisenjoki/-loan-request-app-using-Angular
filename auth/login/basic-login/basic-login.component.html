@@ -1,0 +1,105 @@
+<section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+  <div class="auth-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="login-card card-body auth-body">
+          <form class="md-float-material"
+                *ngIf="!isLoggedIn"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate>
+            <div class="text-center">
+              <img src="assets/images/new-logo.png" alt="logo.png">
+            </div>
+            <div class="auth-box">
+              <div class="row m-b-20">
+                <div class="col-md-12">
+                  <h3 class="text-left txt-primary">Sign In</h3>
+                </div>
+              </div>
+              <hr/>
+              <div class="input-group">
+                <input type="email"  class="form-control"
+                       name="email"
+                       [(ngModel)]="form.email"
+                       required
+                       #email="ngModel"
+                       placeholder="Your Email Address">
+                <span class="md-line"></span>
+              </div>
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  *ngIf="f.submitted && email.invalid"
+                >
+                  Username is required!
+                </div>
+
+              <div class="input-group">
+                <input type="password" class="form-control"
+                       name="password"
+                       [(ngModel)]="form.password"
+                       required
+                       minlength="6"
+                       #password="ngModel"
+                       placeholder="Password">
+                <span class="md-line"></span>
+              </div>
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  *ngIf="f.submitted && password.invalid"
+                >
+                  <div *ngIf="password.errors.required">Password is required</div>
+                  <div *ngIf="password.errors.minlength">
+                    Password must be at least 6 characters
+                  </div>
+                </div>
+              <div class="row m-t-25 text-left">
+                <div class="col-sm-6 col-xs-12">
+                  <div class="checkbox-fade fade-in-primary">
+                    <label>
+                      <input type="checkbox" value="">
+                      <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                      <span class="text-inverse">Remember me</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-12 forgot-phone text-right">
+                  <a [routerLink]="['/auth/forgot']" class="text-right f-w-600 text-inverse"> Forgot Your Password?</a>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row m-t-25 text-left">
+                  <button class="btn btn-primary btn-block">
+                    Login
+                  </button>
+                </div>
+              </div>
+              <div class="row m-t-30">
+                <div class="col-md-10">
+                  <p class="text-inverse text-left m-b-0">Don't have an account?
+                    <a [routerLink]="['/auth/registration']" class="text-right f-w-600 text-inverse"> Register here</a></p>
+                </div>
+              </div>
+              <hr/>
+            </div>
+            <div class="form-group">
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && isLoginFailed"
+              >
+                Login failed: {{ errorMessage }}
+              </div>
+            </div>
+          </form>
+          <div class="alert alert-success" *ngIf="isLoggedIn">
+            Logged in as {{ roles }}.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
